@@ -1,0 +1,24 @@
+{
+  "name": "the_genesis",
+  "version": "0.1.3",
+  "description": "Create the world. ",
+  "main": "lib/genesis.js",
+  "types": "lib/genesis.d.ts",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anthonylhowardjr/Genesis.git"
+  },
+  "keywords": [
+    "ts",
+    "autofixture"
+  ],
+  "author": "Anthony Howard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anthonylhowardjr/Genesis/issues"
+  },
+  "homepage": "https://github.com/anthonylhowardjr/Genesis#readme"
+}
