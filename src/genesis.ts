@@ -1,48 +1,62 @@
 import { Guid } from 'guid-typescript';
 
 export class Genesis {
+  // private _dataTypeGeneratorFactory: IDataTypeGeneratorFactory;
+
+  constructor() {
+    // this._dataTypeGeneratorFactory = new DataTypeGeneratorFactory();    
+  }
+
   /**
      * Creates a new object of Type T.
      <Type>*/
-  public create<T extends string>(value?: T): T;
-  public create<T extends number>(value?: T): T;
-  public create<T extends number>(value?: T): T;
-  public create<TType extends string | number | bigint | boolean>(value: TType): string | number | bigint | boolean | TType | null{
+  public create<T>(value: Array<T>): Array<T>;
+  public create<T extends object>(value: T): T;
+  public create<T extends object>(value: (new () => T)): T;
+  public create<T extends object>(value: (new () => T) | T | number): T | Number {
     // return value ? this.generateValue(value) : this.generateValue<TType>();
+    // let test = this._dataTypeGeneratorFactory.generate({});
 
-    return null;
+    console.log(typeof value)
+
+    if (typeof value === 'function') {
+      let e = value as (new () => T);
+
+      var ee = new e();
+
+      console.log(ee)
+
+      return ee;
+    }
+
+    console.log(value)
+
+    return value;
   }
 
-  private generateValue<TType extends string | number | bigint | boolean>(value?: TType): void {
-    // var valueType = null as TType;
-
-    // switch (typeof(valueType)) {
-    //   case 'string':
-    //     return Guid.create().toString();
-    //   case 'number':
-    //   case 'bigint':
-    //     return this.generateRandomNumber(0, 10000);
-    //   case 'boolean':
-    //     return !!Math.random();
-    // //   case 'object':
-    // //     return {} as TType;
-    //   default:
-    //     throw `Value type of ${type} is not supported.`;
-    // }
+  public createString(): string;
+  public createString(value?: string): string {
+    return '';
   }
 
-  private generateRandomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1) + min);
+  public createNumber(): number;
+  public createNumber(value?: number): number {
+
+    return 2;
+  }
+
+  public createBoolean(): boolean;
+  public createBoolean(value?: boolean): boolean {
+
+    return false;
+  }
+
+  public createArray<T>(): Array<T>;
+  public createArray<T>(value: Array<T>): Array<T>;
+  public createArray<T>(value?: Array<T>): Array<T> {
+
+    return [];
   }
 }
 
-class Person {
-    protected name: string | number | bigint | void | Function | Enumerator;
-    protected constructor(theName: string) { this.name = theName; }
-}
-
-enum Values{
-    One,
-    Two,
-    three
-}
+type T0 = Exclude<Function, object>;
