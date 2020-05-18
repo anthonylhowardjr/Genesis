@@ -46,13 +46,7 @@ describe(`A Genesis instance`, () => {
           expect(created instanceof String).toEqual(true);
         });
       });
-
-      it(`should properly create a default instance of number`, () => {
-        const created = genesis.create(String, StringBuilderType.RandomNumber);
-
-        expect(created).toBeTruthy();
-        expect(created instanceof String).toEqual(true);
-      });
+    });
   });
 });
 
@@ -94,8 +88,8 @@ class ComplexClassOne {
   propertyFour: SimpleClassTwo = new SimpleClassTwo(this.e);
 }
 
-enum Values {
-  One,
-  Two,
-  three,
-}
+// enum Values {
+//   One,
+//   Two,
+//   three
+// }
