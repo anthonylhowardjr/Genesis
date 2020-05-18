@@ -1,62 +1,53 @@
-import { Guid } from 'guid-typescript';
+import { ArrayBuilderType } from '@enums/array-builder-type.enum';
+import { BooleanBuilderType } from "@enums/boolean-builder-type.enum";
+import { DataTypeBuilder } from "@enums/data-type-builder.enum";
+import { EnumBuilderType } from "@enums/enum-builder-type.enum";
+import { NumberBuilderType } from "@enums/number-builder-type.enum";
+import { ObjectBuilderType } from '@enums/object-builder-type.enum';
+import { StringBuilderType } from "@enums/string-builder-type.enum";
+import { IDataTypeGeneratorFactory } from "@builder-factories/data-type-builder-factory/data-type-strategy-factory.interface";
+import { DataTypeGeneratorService } from "./services/data-type-generator-service";
 
 export class Genesis {
-  // private _dataTypeGeneratorFactory: IDataTypeGeneratorFactory;
-
   constructor() {
-    // this._dataTypeGeneratorFactory = new DataTypeGeneratorFactory();    
+    this._dataTypeGeneratorService = new DataTypeGeneratorService();    
   }
 
-  /**
-     * Creates a new object of Type T.
-     <Type>*/
-  public create<T>(value: Array<T>): Array<T>;
-  public create<T extends object>(value: T): T;
-  public create<T extends object>(value: (new () => T)): T;
-  public create<T extends object>(value: (new () => T) | T | number): T | Number {
-    // return value ? this.generateValue(value) : this.generateValue<TType>();
-    // let test = this._dataTypeGeneratorFactory.generate({});
+  public create<T extends String>(constructor: StringConstructor, builder: StringBuilder): T;
+  public create<T extends Boolean>(constructor: BooleanConstructor, builderType?: BooleanBuilder): T;
+  public create<T extends Number>(constructor: NumberConstructor, builderType?: NumberBuilder): T;
+  public create<T>(constructor: new (elements: Iterable<number>) => T): T;
+  public create<T = any>(constructor: ArrayConstructor, builderType?: BuilderType<T>): Array<T>;
+  public create<T extends Object>(constructor: ObjectConstructor, builderType?: BuilderType<T>): T;
+  public create<T extends Object>(constructor: new () => T, builderType?: ObjectBuilder): T;
+  public create<T extends Object = any>(constructor: new () => T, builderType?: BuilderType<T>): T {
+    const constructedObject = new constructor();
 
-    console.log(typeof value)
+    constructedObject.constructor === String;
 
-    if (typeof value === 'function') {
-      let e = value as (new () => T);
-
-      var ee = new e();
-
-      console.log(ee)
-
-      return ee;
-    }
-
-    console.log(value)
-
-    return value;
+    throw Error("Not Implemented");
   }
 
-  public createString(): string;
-  public createString(value?: string): string {
-    return '';
-  }
-
-  public createNumber(): number;
-  public createNumber(value?: number): number {
-
-    return 2;
-  }
-
-  public createBoolean(): boolean;
-  public createBoolean(value?: boolean): boolean {
-
-    return false;
-  }
-
-  public createArray<T>(): Array<T>;
-  public createArray<T>(value: Array<T>): Array<T>;
-  public createArray<T>(value?: Array<T>): Array<T> {
-
-    return [];
-  }
+  private readonly _dataTypeGeneratorService: DataTypeGeneratorService;
 }
 
-type T0 = Exclude<Function, object>;
+type BuilderType<T> =
+  T extends Array<T>
+  ? ArrayBuilder
+  : T extends String
+  ? StringBuilder
+  : T extends Number
+  ? NumberBuilder
+  : T extends Boolean
+  ? BooleanBuilder
+  : T extends Object
+  ? ObjectBuilder
+  : DataTypeBuilder.Object;
+
+
+export type StringBuilder = StringBuilderType.Guid | StringBuilderType.RandomNumber;
+export type EnumBuilder = EnumBuilderType.Default;
+export type NumberBuilder = NumberBuilderType.NonNegative;
+export type ObjectBuilder = ObjectBuilderType.Default;
+export type ArrayBuilder = ArrayBuilderType.Default;
+export type BooleanBuilder = BooleanBuilderType;

@@ -1,5 +1,5 @@
 import { EnumBuilderFactory } from "./enum-builder-factory";
-import { EnumBuilderType } from "@genesis/enums/enum-builder-type.enum";
+import { EnumBuilderType } from "@enums/enum-builder-type.enum";
 
 describe(`An EnumBuilderFactory instance`, () => {
     let enumBuilderFactory: EnumBuilderFactory;

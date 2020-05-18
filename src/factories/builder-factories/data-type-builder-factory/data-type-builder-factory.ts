@@ -1,31 +1,40 @@
-import { IBooleanBuilder } from "@genesis/boolean-builders/boolean-builder.interface";
-import { INumberBuilder } from "@genesis/number-builders/number-builder.interface";
-import { IStringBuilder } from "@genesis/string-builders/string-builder.interface";
-import { ArrayBuilderFactory } from "./array-builder-factory/array-builder-factory";
-import { BooleanBuilderFactory } from "./boolean-builder-factory/boolean-builder-factory";
-import { EnumBuilderFactory } from "./enum-builder-factory/enum-builder-factory";
-import { NumberBuilderFactory } from "./number-builder-factory/number-builder-factory";
-import { ObjectBuilderFactory } from "./object-builder-factory/object-builder-factory";
-import { StringBuilderFactory } from "./string-builder-factory/string-builder-factory";
+import { IArrayBuilder } from "@array-builders/array-builder.interface";
+import { IBooleanBuilder } from "@boolean-builders/boolean-builder.interface";
+import { sealed } from "@decorators/sealed.decorator";
+import { INumberBuilder } from "@number-builders/number-builder.interface";
+import { IObjectBuilder } from "@object-builders/object-builder.interface";
+import { IStringBuilder } from "@string-builders/string-builder.interface";
+import { ArrayBuilderFactory } from "../array-builder-factory/array-builder-factory";
+import { BooleanBuilderFactory } from "../boolean-builder-factory/boolean-builder-factory";
+import { EnumBuilderFactory } from "../enum-builder-factory/enum-builder-factory";
+import { NumberBuilderFactory } from "../number-builder-factory/number-builder-factory";
+import { ObjectBuilderFactory } from "../object-builder-factory/object-builder-factory";
+import { StringBuilderFactory } from "../string-builder-factory/string-builder-factory";
+import { IDataTypeGeneratorFactory } from "./data-type-strategy-factory.interface";
 
-export class DataTypeBuilderFactory {
+@sealed
+export class DataTypeBuilderFactory implements IDataTypeGeneratorFactory {
     public getBooleanBuilder(): IBooleanBuilder {
-        const factory = this.getBooleanBuilderFactory();
-
-        const builder = factory.getBuilder();
-
-        return builder;
+        return this.getBooleanBuilderFactory().getBuilder(); // replace with DI
     }
 
     public getNumberBuilder(): INumberBuilder {
-        return this.getNumberFactory().getBuilder();
+        return this.getNumberBuilderFactory().getBuilder();
     }
 
     public getStringBuilder(): IStringBuilder {
-        return this.getStringFactory().getBuilder();
+        return this.getStringBuilderFactory().getBuilder();
     }
 
-    private getStringFactory(): StringBuilderFactory {
+    public getObjectBuilder(): IObjectBuilder {
+        return this.getObjectBuilderFactory().getBuilder();
+    }
+
+    public getArrayBuilder(): IArrayBuilder {
+        return this.getArrayBuilderFactory().getBuilder();
+    }
+
+    private getStringBuilderFactory(): StringBuilderFactory {
         if (this._lazyStringBuilderFactory) {
             throw Error();
         }
@@ -35,7 +44,7 @@ export class DataTypeBuilderFactory {
         return this._lazyStringBuilderFactory;
     }
 
-    private getNumberFactory(): NumberBuilderFactory {
+    private getNumberBuilderFactory(): NumberBuilderFactory {
         if (this._lazyNumberBuilderFactory) {
             return this._lazyNumberBuilderFactory;
         }
@@ -45,7 +54,7 @@ export class DataTypeBuilderFactory {
         return this._lazyNumberBuilderFactory;
     }
 
-    private getObjectFactory(): ObjectBuilderFactory {
+    private getObjectBuilderFactory(): ObjectBuilderFactory {
         if (this._lazyObjectBuilderFactory) {
             return this._lazyObjectBuilderFactory;
         }

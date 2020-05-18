@@ -28,7 +28,8 @@
   "homepage": "https://github.com/anthonylhowardjr/Genesis#readme",
   "dependencies": {
     "guid-typescript": "^1.0.9",
-    "type-of-is": "^3.5.1"
+    "type-of-is": "^3.5.1",
+    "typescript-ioc": "^3.2.2"
   },
   "devDependencies": {
     "eslint": "^7.0.0",

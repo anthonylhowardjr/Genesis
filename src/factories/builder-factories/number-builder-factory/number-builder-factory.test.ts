@@ -1,4 +1,4 @@
-import { NumberBuilderType } from "@genesis/enums/number-builder-type.enum";
+import { NumberBuilderType } from "@enums/number-builder-type.enum";
 import { NumberBuilderFactory } from "./number-builder-factory";
 
 describe(`A NumberBuilderFactory instance`, () => {

@@ -1,4 +1,4 @@
-import { StringBuilderType } from "@genesis/enums/string-builder-type.enum";
+import { StringBuilderType } from "@enums/string-builder-type.enum";
 
 export class Options {
     constructor() {

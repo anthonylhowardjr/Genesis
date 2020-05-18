@@ -1,8 +1,10 @@
+import { sealed } from "@decorators/sealed.decorator";
+import { NumberBuilderType } from "@enums/number-builder-type.enum";
+import { NonNegativeNumberBuilder } from "@number-builders/non-negative-number-builder";
+import { INumberBuilder } from "@number-builders/number-builder.interface";
 import { BuilderFactory } from "../builder-factory.abstract";
-import { NumberBuilderType } from "@genesis/enums/number-builder-type.enum";
-import { INumberBuilder } from "@genesis/number-builders/number-builder.interface";
-import { NonNegativeNumberBuilder } from "@genesis/number-builders/non-negative-number-builder";
 
+@sealed
 export class NumberBuilderFactory extends BuilderFactory<NumberBuilderType, INumberBuilder> {
     public getBuilder(builderType?: NumberBuilderType): INumberBuilder {
         const numberBuilder = builderType ?? NumberBuilderType.NonNegative;

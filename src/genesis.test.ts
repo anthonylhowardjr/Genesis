@@ -1,52 +1,58 @@
 import { Genesis } from "./genesis";
+import { StringBuilderType } from "@enums/string-builder-type.enum";
 
 describe(`A Genesis instance`, () => {
   let genesis: Genesis;
+
+  const types = new Set([
+    Number,
+    Date,
+    Object,
+    Boolean,
+    String,
+    Array,
+    Uint8Array,
+    Uint32Array,
+    Float32Array,
+    Float64Array,
+    Int8Array,
+    Int32Array,
+    Uint16Array,
+    Int16Array,
+    Uint8ClampedArray,
+  ]);
 
   beforeEach(() => {
     genesis = new Genesis();
   });
 
-  // describe(`upon instantiation`, () => {
-  //   test('should not be null', () => {
-  //     expect(genesis).not.toBeNull();
-  //     expect(genesis).toBeTruthy();
-  //   });
-  // });
-
   describe(`when invoking the create method`, () => {
-    // test('should properly create object', () => {
-    //   genesis.create<SimpleClassTwo>();
-    // });
 
-    test('should properly create object', () => {
-      expect(2 + 22).toEqual(2);
-    });
+    for (const objectType of types) {
+      it(`should properly create a default instance of ${objectType.prototype.constructor.name}`, () => {
+        const created = genesis.create(objectType);
 
-    fit('should properly create object', () => {
-      var test = genesis.create<Object>(Object);
-      var array = genesis.create<Array<string>>(Array);
-      // var array = genesis.create<Array<string>>();
-      var obj = genesis.create(new SimpleClass());
-      var obej = genesis.create(new ComplexClassOne());
-      var ww = genesis.create(SimpleClass);
-      var wew = genesis.create(Genesis);
-      var numbser = genesis.create(() => { });
+        expect(created).toBeTruthy();
+        expect(created instanceof objectType).toEqual(true);
+      });
+    }
 
-      expect(numbser).toEqual(2);
-    });
+    describe(`when invoking the create method`, () => {
 
-    test('should properly create object', () => {
-      genesis.createString();
-    });
+      describe(`with String`, () => {
+        it(`should properly create a ${StringBuilderType.RandomNumber} when added as argument`, () => {
+          const created = genesis.create(String, StringBuilderType.RandomNumber);
 
-    test('should properly create object', () => {
-      genesis.createNumber();
-    });
+          expect(created instanceof String).toEqual(true);
+        });
+      });
 
-    test('should properly create object', () => {
-      genesis.createBoolean();
-    });
+      it(`should properly create a default instance of number`, () => {
+        const created = genesis.create(String, StringBuilderType.RandomNumber);
+
+        expect(created).toBeTruthy();
+        expect(created instanceof String).toEqual(true);
+      });
   });
 });
 
@@ -58,6 +64,8 @@ interface SimpleInterface {
 }
 
 class SimpleClass {
+  constructor() { }
+
   propertyOne: string = "";
   propertyTwo: string = "";
   propertyThree: number = 2;
@@ -65,6 +73,8 @@ class SimpleClass {
 }
 
 class SimpleClassTwo {
+  constructor(name: string) { }
+
   propertyOne: string = "";
   propertyTwo: string = "";
   propertyThree: number = 0;
@@ -72,26 +82,20 @@ class SimpleClassTwo {
 }
 
 class ComplexClassOne {
+  private e: string;
+
+  constructor() {
+    this.e = ComplexClassOne.name;
+  }
+
   propertyOne: string = "";
   propertyTwo: string = "";
   propertyThree: SimpleClass = new SimpleClass();
-  propertyFour: SimpleClassTwo = new SimpleClassTwo();
+  propertyFour: SimpleClassTwo = new SimpleClassTwo(this.e);
 }
-
-// class ComplexClassTwo implements SimpleClassTwo {
-//   propertyOne: string;
-//   propertyTwo: string;
-//   propertyThree: number;
-//   propertyFour: boolean;
-//   propertyFive: SimpleClassTwo;
-//   propertySix: SimpleClass;
-//   propertySeven: SimpleInterface;
-//   propertyEight: ComplexClassOne[];
-//   propertyNine: string;
-// }
 
 enum Values {
   One,
   Two,
-  three
+  three,
 }

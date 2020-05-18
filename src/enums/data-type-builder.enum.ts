@@ -1,8 +1,10 @@
 export enum DataTypeBuilder {
-    String,
-    Number,
-    Array,
-    Object,
-    Enum,
-    Boolean
+    String = "String",
+    Number = "Number",
+    Array = "Array",
+    Object = "Object",
+    Enum = "Enum",
+    Boolean = "Boolean"
 }
+
+export type DataType = Record<DataTypeBuilder, string>;

@@ -1,5 +1,5 @@
 
-import { ObjectBuilderType } from "@genesis/enums/object-builder-type.enum";
+import { ObjectBuilderType } from "@enums/object-builder-type.enum";
 import { ObjectBuilderFactory } from "./object-builder-factory";
 
 describe(`An ObjectBuilderFactory instance`, () => {

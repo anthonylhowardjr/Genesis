@@ -1,61 +1,24 @@
-import { DataTypeBuilderFactory } from "@genesis/builder-factories/data-type-builder-factory";
+import { DataTypeBuilderFactory } from "@builder-factories/data-type-builder-factory/data-type-builder-factory";
+import { IDataTypeGeneratorFactory } from "@builder-factories/data-type-builder-factory/data-type-strategy-factory.interface";
+import { StringBuilderType } from "@enums/string-builder-type.enum";
 
-class DataTypeGeneratorService {
-    constructor() {
-        this._dataTypeBuilderFactory = new DataTypeBuilderFactory(); // Replace with DI at some point        
+export class DataTypeGeneratorService {
+
+    constructor() {  
+        this._dataTypeBuilderFactory = new DataTypeBuilderFactory(); // Replace with DI    
     }
 
-    public generate<T>(value: Array<T>): Array<T>;
-    public generate<T extends object>(value: T): T;
-    public generate<T extends object>(value: (new () => T)): T;
-    public generate<T extends object>(value: (new () => T) | T | number): object | Array<T> {
-        //return this.processObject(value);
-        throw Error();
+    public build(builderType: StringBuilderType): T {
+        throw Error("Method not implemented");
     }
 
-    public generateString(): string;
-    public generateString(value?: string): string {
-        const stringBuilder = this._dataTypeBuilderFactory.getStringBuilder();
-        return stringBuilder.build();
+    public populate<T extends Object>(targetObject: T): T {
+        throw Error("Method not implemented");
     }
 
-    public generateNumber(): number;
-    public generateNumber(value?: number): number {
-        const numberBuilder = this._dataTypeBuilderFactory.getNumberBuilder();
-        return numberBuilder.build();
+    public canPopulate(): boolean {
+        throw Error("Method not implemented");
     }
 
-    public generateBoolean(): boolean;
-    public generateBoolean(value?: boolean): boolean {
-        const booleanBuilder = this._dataTypeBuilderFactory.getBooleanBuilder();
-        return booleanBuilder.build();
-    }
-
-    public generateArray<T>(): Array<T>;
-    public generateArray<T>(value: Array<T>): Array<T>;
-    public generateArray<T>(value?: Array<T>): Array<T> {
-
-        return [];
-    }
-
-    private processArray() {
-
-    }
-
-    private processObject<T extends object>(targetObject: T): object | Array<T> {
-        for (const key in targetObject) {
-            if (targetObject.hasOwnProperty(key)) {
-                const element = targetObject[key];
-                
-            }
-        }
-
-        throw Error();
-    }
-
-    private transport() {
-
-    }
-
-    private readonly _dataTypeBuilderFactory: DataTypeBuilderFactory;
+    private readonly _dataTypeBuilderFactory: IDataTypeGeneratorFactory;
 }

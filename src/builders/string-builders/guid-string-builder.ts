@@ -1,7 +1,9 @@
-import { IGuidAdapter } from "@genesis/guid/guid-adapter.interface";
-import { GuidTypescript } from "@genesis/guid/guid-typescript";
+import { sealed } from "@decorators/sealed.decorator";
+import { IGuidAdapter } from "@guid/guid-adapter.interface";
+import { GuidTypescript } from "@guid/guid-typescript";
 import { IStringBuilder } from "./string-builder.interface";
 
+@sealed
 export class GuidStringBuilder implements IStringBuilder {
     constructor() {
         // Replace with DI at some point

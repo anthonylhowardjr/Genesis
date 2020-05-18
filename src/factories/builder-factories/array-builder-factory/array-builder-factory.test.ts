@@ -1,5 +1,5 @@
-import { ArrayBuilderType } from "@genesis/enums/array-builder-type.enum";
 import { ArrayBuilderFactory } from "./array-builder-factory";
+import { ArrayBuilderType } from "@enums/array-builder-type.enum";
 
 describe(`An ArrayBuilderFactory instance`, () => {
     let arrayBuilderFactory: ArrayBuilderFactory;

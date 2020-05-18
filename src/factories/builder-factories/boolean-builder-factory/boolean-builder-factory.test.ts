@@ -1,4 +1,4 @@
-import { BooleanBuilderType } from "@genesis/enums/boolean-builder-type.enum";
+import { BooleanBuilderType } from "@enums/boolean-builder-type.enum";
 import { BooleanBuilderFactory } from "./boolean-builder-factory";
 
 describe(`A BooleanBuilderFactory instance`, () => {

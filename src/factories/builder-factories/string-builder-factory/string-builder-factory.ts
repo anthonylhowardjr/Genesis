@@ -1,9 +1,11 @@
-import { StringBuilderType } from "@genesis/enums/string-builder-type.enum";
-import { GuidStringBuilder } from "@genesis/string-builders/guid-string-builder";
-import { RandomNumberStringBuilder } from "@genesis/string-builders/random-number-string-builder";
-import { IStringBuilder } from "@genesis/string-builders/string-builder.interface";
+import { StringBuilderType } from "@enums/string-builder-type.enum";
+import { GuidStringBuilder } from "@string-builders/guid-string-builder";
+import { RandomNumberStringBuilder } from "@string-builders/random-number-string-builder";
+import { IStringBuilder } from "@string-builders/string-builder.interface";
 import { BuilderFactory } from "../builder-factory.abstract";
+import { sealed } from "@decorators/sealed.decorator";
 
+@sealed
 export class StringBuilderFactory extends BuilderFactory<StringBuilderType, IStringBuilder> {
     public getBuilder(builderType?: StringBuilderType): IStringBuilder {
         const stringBuilder = builderType ?? StringBuilderType.Guid;

@@ -1,8 +1,10 @@
-import { EnumBuilder } from "@genesis/enum-builders/enum-builder";
-import { IEnumBuilder } from "@genesis/enum-builders/enum-builder.interface";
-import { EnumBuilderType } from "@genesis/enums/enum-builder-type.enum";
+import { sealed } from "@decorators/sealed.decorator";
+import { EnumBuilder } from "@enum-builders/enum-builder";
+import { IEnumBuilder } from "@enum-builders/enum-builder.interface";
+import { EnumBuilderType } from "@enums/enum-builder-type.enum";
 import { BuilderFactory } from "../builder-factory.abstract";
 
+@sealed
 export class EnumBuilderFactory extends BuilderFactory<EnumBuilderType, IEnumBuilder> {
     public getBuilder(builderType?: EnumBuilderType): IEnumBuilder {
         const objectBuilder = builderType ?? EnumBuilderType.Default;

@@ -1,8 +1,10 @@
-import { ObjectBuilderType } from "@genesis/enums/object-builder-type.enum";
-import { ObjectBuilder } from "@genesis/object-builders/object-builder";
-import { IObjectBuilder } from "@genesis/object-builders/object-builder.interface";
+import { sealed } from "@decorators/sealed.decorator";
+import { ObjectBuilderType } from "@enums/object-builder-type.enum";
+import { ObjectBuilder } from "@object-builders/object-builder";
+import { IObjectBuilder } from "@object-builders/object-builder.interface";
 import { BuilderFactory } from "../builder-factory.abstract";
 
+@sealed
 export class ObjectBuilderFactory extends BuilderFactory<ObjectBuilderType, IObjectBuilder> {
     public getBuilder(builderType?: ObjectBuilderType): IObjectBuilder {
         const objectBuilder = builderType ?? ObjectBuilderType.Default;

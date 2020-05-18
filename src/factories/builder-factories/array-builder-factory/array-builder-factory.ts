@@ -1,8 +1,10 @@
-import { ArrayBuilder } from "@genesis/array-builders/array-builder";
-import { IArrayBuilder } from "@genesis/array-builders/array-builder.interface";
-import { ArrayBuilderType } from "@genesis/enums/array-builder-type.enum";
+import { ArrayBuilder } from "@array-builders/array-builder";
+import { IArrayBuilder } from "@array-builders/array-builder.interface";
+import { sealed } from "@decorators/sealed.decorator";
+import { ArrayBuilderType } from "@enums/array-builder-type.enum";
 import { BuilderFactory } from "../builder-factory.abstract";
 
+@sealed
 export class ArrayBuilderFactory extends BuilderFactory<ArrayBuilderType, IArrayBuilder> {
     public getBuilder(builderType: ArrayBuilderType = ArrayBuilderType.Default): IArrayBuilder {
         if (!this._builders.has(builderType)) {

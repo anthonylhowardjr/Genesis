@@ -1,6 +1,8 @@
 import { IBooleanBuilder } from './boolean-builder.interface';
-import { generateRandomNumber } from "@genesis/shared/number-generator";
+import { generateRandomNumber } from "@shared/number-generator";
+import { sealed } from "@decorators/sealed.decorator";
 
+@sealed
 export class BooleanBuilder implements IBooleanBuilder {
 
     public build(): boolean {
